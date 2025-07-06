@@ -4,33 +4,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Claude Code prompt management system (Claude Code 提示词管理仓库) designed to organize and reuse Claude Code prompts across different projects. The system provides a collection of specialized prompts and automated scripts for deployment across development environments.
+This is a Claude Code prompt management system designed to organize and reuse Claude Code prompts across different projects. The system provides a collection of specialized prompts and automated scripts for deployment across development environments.
 
 ## Key Commands
 
-### 🚀 一键设置 (主要方式)
+### 🚀 One-Click Setup (Primary Method)
 ```bash
-# 一键配置最全MCP服务和提示词
+# One-click configuration for complete MCP services and prompts
 ~/claude-code-prompt-sync/setup.sh
 ```
 
-**特点**：
-- 🎯 **零配置**：自动配置13个最强MCP服务
-- ⚡ **极速**：30秒完成所有配置
-- 🧠 **最强功能**：包含magic、context7、sequential-thinking等AI增强
-- 🎭 **SuperClaude框架**：19个专业开发命令 + 9个认知角色
-- 📱 **傻瓜式**：无需任何选择，直接获得最佳配置
+**Features**：
+- 🎯 **Zero Configuration**: Auto-configures 13 most powerful MCP services
+- ⚡ **Ultra-Fast**: Complete setup in 30 seconds
+- 🧠 **Most Powerful Features**: Includes magic, context7, sequential-thinking and other AI enhancements
+- 🎭 **SuperClaude Framework**: 19 professional development commands + 9 cognitive personas
+- 📱 **Foolproof**: No choices needed, get the best configuration directly
 
-### 🎛️ 管理工具 (可选)
+### 🎛️ Management Tool (Optional)
 ```bash
-# 状态检查和重新配置
+# Status checking and reconfiguration
 ~/claude-code-prompt-sync/manage.sh
 ```
 
-**特点**：
-- 📊 配置状态检查
-- 🔄 重新配置功能
-- 🎯 精简版管理界面
+**Features**：
+- 📊 Configuration status checking
+- 🔄 Reconfiguration functionality
+- 🎯 Streamlined management interface
 
 ### Project Types Supported
 - `react` - React applications

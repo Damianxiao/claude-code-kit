@@ -1,70 +1,70 @@
-# Claude Code 极简配置
+# Claude Code Kit - Ultimate Enhancement Suite
 
-## 🚀 一行命令，搞定一切
+## 🚀 One Command, Complete Power
 
 ```bash
-cd /your/project && ~/claude-code-prompt-sync/setup.sh
+cd /your/project && ~/claude-code-kit/setup.sh
 ```
 
-## ✨ 你将获得
+## ✨ What You Get
 
-### 🧠 AI超级提示词
-- `/project:ultrathink-task` - 4个AI代理协作解决复杂问题
-- `/project:code-review` - 专业代码审查和安全检查
+### 🧠 AI Super Prompts
+- `/project:ultrathink-task` - 4 AI agents collaborating on complex problems
+- `/project:code-review` - Professional code review and security analysis
 
-### 🎭 SuperClaude开发框架
-- **19个专业命令** - 覆盖完整开发生命周期
-- **9个认知角色** - 架构师、安全专家、前端专家等
-- **工作流自动化** - 构建、测试、部署一条龙
-- **证据驱动开发** - 系统化的开发方法论
+### 🎭 SuperClaude Development Framework
+- **19 Professional Commands** - Complete development lifecycle coverage
+- **9 Cognitive Personas** - Architect, Security Expert, Frontend Specialist, etc.
+- **Workflow Automation** - Build, test, deploy in one flow
+- **Evidence-Driven Development** - Systematic development methodology
 
-### 🔧 13个最强MCP服务
-- **magic** - 🪄 AI驱动的UI组件生成器，自动创建React组件
-- **context7** - 向量数据库，智能上下文管理
-- **sequential-thinking** - 序列化AI思维处理
-- **browser-tools** - 高级浏览器自动化工具
-- **fetch** - 增强HTTP请求处理
-- **filesystem** - 文件系统完全访问
-- **git** - Git仓库智能操作
-- **puppeteer** - 浏览器自动化测试
-- **postgres** - PostgreSQL数据库操作
-- **sqlite** - SQLite数据库管理
-- **memory** - 持久化智能内存
-- **brave-search** - 智能网络搜索
-- **everything** - 通用工具集合
+### 🔧 13 Premium MCP Services
+- **magic** - 🪄 AI-powered UI component generator, auto-creates React components
+- **context7** - Vector database, intelligent context management
+- **sequential-thinking** - Sequential AI reasoning processing
+- **browser-tools** - Advanced browser automation tools
+- **fetch** - Enhanced HTTP request handling
+- **filesystem** - Complete file system access
+- **git** - Intelligent Git repository operations
+- **puppeteer** - Browser automation testing
+- **postgres** - PostgreSQL database operations
+- **sqlite** - SQLite database management
+- **memory** - Persistent intelligent memory
+- **brave-search** - Smart web search
+- **everything** - Universal toolkit collection
 
-## 🎯 30秒快速开始
+## 🎯 30-Second Quick Start
 
-1. **进入项目目录**
+1. **Enter your project directory**
    ```bash
    cd /path/to/your/project
    ```
 
-2. **运行设置脚本**
+2. **Run setup script**
    ```bash
-   ~/claude-code-prompt-sync/setup.sh
+   ~/claude-code-kit/setup.sh
    ```
 
-3. **重启Claude Code**
+3. **Restart Claude Code**
 
-4. **开始使用**
+4. **Start using**
    ```
-   /project:ultrathink-task 帮我设计一个用户认证系统
+   /project:ultrathink-task Design a user authentication system
    ```
 
-## 🔥 立即体验超强功能
+## 🔥 Experience Ultimate Power
 
-### 智能任务分析
+### Intelligent Task Analysis
 ```
-/project:ultrathink-task 创建一个电商网站的支付系统，要求安全可靠
+/project:ultrathink-task Create a secure payment system for an e-commerce website
 ```
 
-### 专业代码审查
+### Professional Code Review
 ```
 /project:code-review src/payment/processor.js
 ```
 
-### 🎭 SuperClaude专业开发
+### 🎭 SuperClaude Professional Development
 ```
 /build --react --magic --tdd --persona-frontend
 /analyze --architecture --seq --persona-architect
@@ -73,68 +73,68 @@ cd /your/project && ~/claude-code-prompt-sync/setup.sh
 /deploy --env staging --plan --persona-backend
 ```
 
-### 🪄 AI UI组件生成 (需要Magic API Key)
-现在Claude可以直接为你生成完整的React组件！只需描述你想要的组件，magic服务就会自动创建代码。
+### 🪄 AI UI Component Generation (Requires Magic API Key)
+Claude can now generate complete React components directly! Just describe the component you want, and the magic service will automatically create the code.
 
-### 🔧 强大MCP服务 + 🎭 SuperClaude框架
-现在Claude拥有**完整的开发生态系统**：
-- 直接操作数据库、文件系统、Git仓库
-- 浏览器自动化和网络搜索
-- AI生成React UI组件
-- **19个专业开发命令**覆盖完整工作流
-- **9个认知角色**提供专业视角
+### 🔧 Powerful MCP Services + 🎭 SuperClaude Framework
+Claude now has a **complete development ecosystem**:
+- Direct database, filesystem, Git repository operations
+- Browser automation and web search
+- AI-generated React UI components
+- **19 professional development commands** covering complete workflows
+- **9 cognitive personas** providing expert perspectives
 
-## 🛠️ 可选功能
+## 🛠️ Optional Features
 
-### 管理工具
+### Management Tool
 ```bash
-~/claude-code-prompt-sync/manage.sh
+~/claude-code-kit/manage.sh
 ```
-提供状态检查和重新配置功能。
+Provides status checking and reconfiguration functionality.
 
-### 环境变量（可选）
+### Environment Variables (Optional)
 ```bash
 export POSTGRES_CONNECTION_STRING="postgresql://localhost:5432/mydb"
 export BRAVE_API_KEY="your-brave-api-key"
 export MAGIC_API_KEY="your-magic-api-key"
 ```
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
-claude-code-prompt-sync/
-├── setup.sh              # 🥇 核心脚本 - 一键设置
-├── manage.sh              # 🎛️ 管理工具
+claude-code-kit/
+├── setup.sh              # 🥇 Core script - One-click setup
+├── manage.sh              # 🎛️ Management tool
 ├── mcp-configs/
-│   └── ultimate.json      # 最全MCP配置
+│   └── ultimate.json      # Complete MCP configuration
 ├── prompts/
-│   ├── ultrathink-task.md # 超级思考提示词
-│   └── code-review.md     # 代码审查提示词
-├── README.md              # 本文件
-└── CLAUDE.md              # 开发者文档
+│   ├── ultrathink-task.md # Super thinking prompts
+│   └── code-review.md     # Code review prompts
+├── README.md              # This file
+└── CLAUDE.md              # Developer documentation
 ```
 
-## 💡 一个命令 = 无限可能
+## 💡 One Command = Infinite Possibilities
 
-不需要学习复杂配置，不需要记忆多个命令。
+No need to learn complex configurations or memorize multiple commands.
 
-**一行命令，立即享受Claude Code的所有强大功能！**
+**One command, instantly enjoy all the powerful features of Claude Code!**
 
-## 🙏 致谢与引用
+## 🙏 Acknowledgments and Attribution
 
-### SuperClaude框架
-本项目集成了 [SuperClaude](https://github.com/NomenAK/SuperClaude) 开发框架：
-- **作者**: [NomenAK](https://github.com/NomenAK)
-- **项目**: https://github.com/NomenAK/SuperClaude
-- **功能**: 提供19个专业开发命令和9个认知角色，实现证据驱动的开发工作流
+### SuperClaude Framework
+This project integrates the [SuperClaude](https://github.com/NomenAK/SuperClaude) development framework:
+- **Author**: [NomenAK](https://github.com/NomenAK)
+- **Project**: https://github.com/NomenAK/SuperClaude
+- **Features**: Provides 19 professional development commands and 9 cognitive personas, implementing evidence-driven development workflows
 
-感谢SuperClaude项目为Claude Code生态系统带来的强大增强功能！
+Thanks to the SuperClaude project for bringing powerful enhancement features to the Claude Code ecosystem!
 
-### 开源协议
-- 本项目遵循MIT开源协议
-- SuperClaude框架遵循其原项目的开源协议
-- 所有集成的MCP服务遵循各自的开源协议
+### Open Source Licenses
+- This project follows the MIT open source license
+- SuperClaude framework follows its original project's open source license
+- All integrated MCP services follow their respective open source licenses
 
 ---
 
-*需要更多功能？使用 `~/claude-code-prompt-sync/manage.sh`*
+*Need more features? Use `~/claude-code-kit/manage.sh`*
