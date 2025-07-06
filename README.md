@@ -120,6 +120,21 @@ claude-code-prompt-sync/
 
 **一行命令，立即享受Claude Code的所有强大功能！**
 
+## 🙏 致谢与引用
+
+### SuperClaude框架
+本项目集成了 [SuperClaude](https://github.com/NomenAK/SuperClaude) 开发框架：
+- **作者**: [NomenAK](https://github.com/NomenAK)
+- **项目**: https://github.com/NomenAK/SuperClaude
+- **功能**: 提供19个专业开发命令和9个认知角色，实现证据驱动的开发工作流
+
+感谢SuperClaude项目为Claude Code生态系统带来的强大增强功能！
+
+### 开源协议
+- 本项目遵循MIT开源协议
+- SuperClaude框架遵循其原项目的开源协议
+- 所有集成的MCP服务遵循各自的开源协议
+
 ---
 
 *需要更多功能？使用 `~/claude-code-prompt-sync/manage.sh`*
