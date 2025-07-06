@@ -1,53 +1,53 @@
 #!/bin/bash
 
-# Claude Code 极简设置脚本
-# 一键配置提示词和最全MCP服务
+# Claude Code Kit - Ultimate Setup Script
+# One-click configuration for prompts and premium MCP services
 
 set -e
 
-# 颜色定义
+# Color definitions
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-# 脚本目录
+# Script directory
 SCRIPT_DIR="$(dirname "$0")"
 CURRENT_DIR=$(pwd)
 
-echo -e "${BLUE}🚀 Claude Code 一键设置${NC}"
-echo -e "${YELLOW}正在配置提示词、完整MCP服务和SuperClaude框架...${NC}"
+echo -e "${BLUE}🚀 Claude Code Kit - Ultimate Setup${NC}"
+echo -e "${YELLOW}Configuring prompts, complete MCP services, and SuperClaude framework...${NC}"
 echo ""
 
-# 检测项目类型
+# Detect project type
 detect_project() {
     if [ -f "package.json" ]; then
-        echo "Node.js项目"
+        echo "Node.js Project"
     elif [ -f "go.mod" ]; then
-        echo "Go项目"
+        echo "Go Project"
     elif [ -f "Cargo.toml" ]; then
-        echo "Rust项目"
+        echo "Rust Project"
     elif [ -f "requirements.txt" ] || [ -f "pyproject.toml" ]; then
-        echo "Python项目"
+        echo "Python Project"
     else
-        echo "通用项目"
+        echo "Generic Project"
     fi
 }
 
-# 设置提示词
+# Setup prompts
 setup_prompts() {
-    echo -e "${BLUE}📋 配置Claude提示词...${NC}"
+    echo -e "${BLUE}📋 Configuring Claude prompts...${NC}"
     
-    # 创建目录
+    # Create directories
     mkdir -p .claude/commands
     
-    # 复制提示词文件
+    # Copy prompt files
     if [ -d "$SCRIPT_DIR/prompts" ]; then
         cp "$SCRIPT_DIR/prompts/"* .claude/ 2>/dev/null || true
         cp "$SCRIPT_DIR/prompts/"* .claude/commands/ 2>/dev/null || true
         
-        # 创建配置文件
+        # Create configuration file
         cat > .claude/settings.local.json << 'EOF'
 {
   "permissions": {
@@ -57,173 +57,173 @@ setup_prompts() {
 }
 EOF
         
-        echo -e "${GREEN}✅ 提示词配置完成${NC}"
+        echo -e "${GREEN}✅ Prompts configuration completed${NC}"
         return 0
     else
-        echo -e "${RED}❌ 找不到提示词文件${NC}"
+        echo -e "${RED}❌ Prompt files not found${NC}"
         return 1
     fi
 }
 
-# 设置MCP服务
+# Setup MCP services
 setup_mcp() {
-    echo -e "${BLUE}🔧 配置完整MCP服务...${NC}"
+    echo -e "${BLUE}🔧 Configuring complete MCP services...${NC}"
     
-    # 使用ultimate配置
+    # Use ultimate configuration
     if [ -f "$SCRIPT_DIR/mcp-configs/ultimate.json" ]; then
-        # 备份现有配置
+        # Backup existing configuration
         [ -f ".mcp.json" ] && cp .mcp.json ".mcp.json.backup.$(date +%Y%m%d_%H%M%S)"
         
-        # 应用配置
+        # Apply configuration
         cp "$SCRIPT_DIR/mcp-configs/ultimate.json" .mcp.json
         
-        # 调整路径
+        # Adjust paths
         if command -v sed >/dev/null 2>&1; then
             sed -i.tmp "s|/path/to/project|$CURRENT_DIR|g" .mcp.json && rm -f .mcp.json.tmp
         fi
         
-        echo -e "${GREEN}✅ MCP服务配置完成${NC}"
-        echo -e "${YELLOW}📋 已配置的服务：${NC}"
-        echo "  • filesystem - 文件系统访问"
-        echo "  • git - Git仓库操作"
-        echo "  • context7 - 向量数据库"
-        echo "  • sequential-thinking - 序列化思维"
-        echo "  • fetch - HTTP请求"
-        echo "  • browser-tools - 浏览器工具"
-        echo "  • puppeteer - 浏览器自动化"
-        echo "  • postgres - PostgreSQL数据库"
-        echo "  • sqlite - SQLite数据库"
-        echo "  • memory - 持久化内存"
-        echo "  • brave-search - 智能搜索"
-        echo "  • everything - 通用工具集"
-        echo "  • magic - AI UI组件生成器"
+        echo -e "${GREEN}✅ MCP services configuration completed${NC}"
+        echo -e "${YELLOW}📋 Configured services:${NC}"
+        echo "  • filesystem - File system access"
+        echo "  • git - Git repository operations"
+        echo "  • context7 - Vector database"
+        echo "  • sequential-thinking - Sequential reasoning"
+        echo "  • fetch - HTTP requests"
+        echo "  • browser-tools - Browser tools"
+        echo "  • puppeteer - Browser automation"
+        echo "  • postgres - PostgreSQL database"
+        echo "  • sqlite - SQLite database"
+        echo "  • memory - Persistent memory"
+        echo "  • brave-search - Smart search"
+        echo "  • everything - Universal toolkit"
+        echo "  • magic - AI UI component generator"
         
         return 0
     else
-        echo -e "${RED}❌ 找不到MCP配置文件${NC}"
+        echo -e "${RED}❌ MCP configuration file not found${NC}"
         return 1
     fi
 }
 
-# 设置SuperClaude框架
+# Setup SuperClaude framework
 setup_superclaude() {
-    echo -e "${BLUE}🎭 配置SuperClaude开发框架...${NC}"
+    echo -e "${BLUE}🎭 Configuring SuperClaude development framework...${NC}"
     
-    # 询问是否安装SuperClaude
-    echo -e "${YELLOW}SuperClaude提供：${NC}"
-    echo "  • 19个专业开发命令"
-    echo "  • 9个认知角色（personas）"
-    echo "  • 开发工作流自动化"
-    echo "  • 证据驱动的开发方法"
+    # Ask whether to install SuperClaude
+    echo -e "${YELLOW}SuperClaude provides:${NC}"
+    echo "  • 19 professional development commands"
+    echo "  • 9 cognitive personas"
+    echo "  • Development workflow automation"
+    echo "  • Evidence-driven development methodology"
     echo ""
     
-    read -p "是否安装SuperClaude框架？(Y/n): " -n 1 -r
+    read -p "Install SuperClaude framework? (Y/n): " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Nn]$ ]]; then
-        echo -e "${YELLOW}⏭️ 跳过SuperClaude安装${NC}"
+        echo -e "${YELLOW}⏭️ Skipping SuperClaude installation${NC}"
         return 0
     fi
     
-    # 检查git是否可用
+    # Check if git is available
     if ! command -v git >/dev/null 2>&1; then
-        echo -e "${RED}❌ 需要git来安装SuperClaude${NC}"
+        echo -e "${RED}❌ Git is required to install SuperClaude${NC}"
         return 1
     fi
     
-    # 检查是否已经安装
+    # Check if already installed
     if [ -f "$HOME/.claude/CLAUDE.md" ]; then
-        echo -e "${YELLOW}⚠️ 检测到现有SuperClaude安装${NC}"
-        read -p "是否重新安装？(y/N): " -n 1 -r
+        echo -e "${YELLOW}⚠️ Existing SuperClaude installation detected${NC}"
+        read -p "Reinstall? (y/N): " -n 1 -r
         echo
         if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            echo -e "${GREEN}✅ 保持现有SuperClaude安装${NC}"
+            echo -e "${GREEN}✅ Keeping existing SuperClaude installation${NC}"
             return 0
         fi
     fi
     
-    # 创建临时目录
+    # Create temporary directory
     local temp_dir=$(mktemp -d)
-    echo -e "${BLUE}📥 下载SuperClaude...${NC}"
+    echo -e "${BLUE}📥 Downloading SuperClaude...${NC}"
     
-    # 克隆仓库
+    # Clone repository
     if git clone https://github.com/NomenAK/SuperClaude.git "$temp_dir/SuperClaude" >/dev/null 2>&1; then
-        echo -e "${GREEN}✅ 下载完成${NC}"
+        echo -e "${GREEN}✅ Download completed${NC}"
         
-        # 运行安装脚本
+        # Run installation script
         cd "$temp_dir/SuperClaude"
         if bash ./install.sh --force >/dev/null 2>&1; then
-            echo -e "${GREEN}✅ SuperClaude安装完成${NC}"
-            echo -e "${YELLOW}📋 已安装功能：${NC}"
-            echo "  • /build, /test, /deploy - 开发命令"
-            echo "  • /analyze, /review, /troubleshoot - 分析命令"
-            echo "  • --persona-architect, --persona-security - 认知角色"
-            echo "  • --think, --seq, --magic - 增强选项"
+            echo -e "${GREEN}✅ SuperClaude installation completed${NC}"
+            echo -e "${YELLOW}📋 Installed features:${NC}"
+            echo "  • /build, /test, /deploy - Development commands"
+            echo "  • /analyze, /review, /troubleshoot - Analysis commands"
+            echo "  • --persona-architect, --persona-security - Cognitive personas"
+            echo "  • --think, --seq, --magic - Enhancement options"
             
-            # 清理临时目录
+            # Clean up temporary directory
             cd "$CURRENT_DIR"
             rm -rf "$temp_dir"
             return 0
         else
-            echo -e "${RED}❌ SuperClaude安装失败${NC}"
+            echo -e "${RED}❌ SuperClaude installation failed${NC}"
             cd "$CURRENT_DIR"
             rm -rf "$temp_dir"
             return 1
         fi
     else
-        echo -e "${RED}❌ 下载SuperClaude失败${NC}"
+        echo -e "${RED}❌ SuperClaude download failed${NC}"
         rm -rf "$temp_dir"
         return 1
     fi
 }
 
-# 创建项目指导
+# Create project guide
 create_guide() {
     local project_type=$1
     local project_name=$(basename "$CURRENT_DIR")
     
     cat > .claude/guide.md << EOF
-# $project_name - Claude Code 配置
+# $project_name - Claude Code Kit Configuration
 
-## 项目信息
-- 项目类型: $project_type
-- 配置时间: $(date)
+## Project Information
+- Project Type: $project_type
+- Configuration Time: $(date)
 
-## 🤖 可用提示词
+## 🤖 Available Prompts
 \`\`\`
-/project:ultrathink-task <任务描述>
-/project:code-review <代码>
-\`\`\`
-
-## 🎭 SuperClaude开发框架
-\`\`\`
-/build --react --magic --tdd          # AI组件开发
-/analyze --architecture --seq         # 架构分析
-/test --coverage --e2e --pup         # 自动化测试
-/review --quality --persona-qa       # 质量审查
-/deploy --env staging --plan         # 部署规划
+/project:ultrathink-task <task description>
+/project:code-review <code>
 \`\`\`
 
-## 🔧 已配置MCP服务
-- 文件系统、Git、数据库操作
-- 浏览器自动化和HTTP请求
-- AI增强功能（context7、sequential-thinking、magic）
-- 搜索和通用工具
-
-## 🚀 开始使用
-重启Claude Code，然后尝试:
+## 🎭 SuperClaude Development Framework
 \`\`\`
-/project:ultrathink-task 帮我分析这个项目的架构
+/build --react --magic --tdd          # AI component development
+/analyze --architecture --seq         # Architecture analysis
+/test --coverage --e2e --pup         # Automated testing
+/review --quality --persona-qa       # Quality review
+/deploy --env staging --plan         # Deployment planning
+\`\`\`
+
+## 🔧 Configured MCP Services
+- File system, Git, database operations
+- Browser automation and HTTP requests
+- AI enhancement features (context7, sequential-thinking, magic)
+- Search and universal tools
+
+## 🚀 Getting Started
+Restart Claude Code, then try:
+\`\`\`
+/project:ultrathink-task Analyze this project's architecture
 /build --react --magic --persona-frontend
 /analyze --code --think --persona-architect
 \`\`\`
 
-## 🔄 更新配置
+## 🔄 Update Configuration
 \`\`\`bash
 $SCRIPT_DIR/setup.sh
 \`\`\`
 EOF
     
-    echo -e "${GREEN}✅ 项目指导已创建${NC}"
+    echo -e "${GREEN}✅ Project guide created${NC}"
 }
 
 # 主函数
@@ -265,25 +265,25 @@ main() {
     if [ "$success" = true ]; then
         create_guide "$project_type"
         echo ""
-        echo -e "${GREEN}🎉 设置完成！${NC}"
+        echo -e "${GREEN}🎉 Setup completed!${NC}"
         echo ""
-        echo -e "${YELLOW}📖 接下来：${NC}"
-        echo "1. 重启Claude Code"
-        echo "2. 尝试 /project:ultrathink-task 命令"
-        echo "3. 尝试 /build --react --magic --persona-frontend"
-        echo "4. 查看指导: cat .claude/guide.md"
+        echo -e "${YELLOW}📖 Next steps:${NC}"
+        echo "1. Restart Claude Code"
+        echo "2. Try /project:ultrathink-task command"
+        echo "3. Try /build --react --magic --persona-frontend"
+        echo "4. View guide: cat .claude/guide.md"
         echo ""
-        echo -e "${BLUE}💡 环境变量设置（可选）：${NC}"
+        echo -e "${BLUE}💡 Environment variable setup (optional):${NC}"
         echo "export POSTGRES_CONNECTION_STRING=\"postgresql://localhost:5432/mydb\""
         echo "export BRAVE_API_KEY=\"your-api-key\""
         echo "export MAGIC_API_KEY=\"your-magic-api-key\""
     else
-        echo -e "${RED}❌ 设置失败，请检查错误信息${NC}"
+        echo -e "${RED}❌ Setup failed, please check error messages${NC}"
         exit 1
     fi
 }
 
-# 如果直接运行脚本
+# If running script directly
 if [ "${BASH_SOURCE[0]}" == "${0}" ]; then
     main "$@"
 fi

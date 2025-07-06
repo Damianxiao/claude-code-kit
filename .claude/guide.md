@@ -1,28 +1,39 @@
-# claude-code-prompt-sync - Claude Code 配置
+# claude-code-prompt-sync - Claude Code Kit Configuration
 
-## 项目信息
-- 项目类型: 通用项目
-- 配置时间: Sun Jul  6 17:19:28 CST 2025
+## Project Information
+- Project Type: Generic Project
+- Configuration Time: Sun Jul  6 19:39:52 CST 2025
 
-## 🤖 可用提示词
+## 🤖 Available Prompts
 ```
-/project:ultrathink-task <任务描述>
-/project:code-review <代码>
-```
-
-## 🔧 已配置MCP服务
-- 文件系统、Git、数据库操作
-- 浏览器自动化和HTTP请求
-- AI增强功能（context7、sequential-thinking）
-- 搜索和通用工具
-
-## 🚀 开始使用
-重启Claude Code，然后尝试:
-```
-/project:ultrathink-task 帮我分析这个项目的架构
+/project:ultrathink-task <task description>
+/project:code-review <code>
 ```
 
-## 🔄 更新配置
+## 🎭 SuperClaude Development Framework
+```
+/build --react --magic --tdd          # AI component development
+/analyze --architecture --seq         # Architecture analysis
+/test --coverage --e2e --pup         # Automated testing
+/review --quality --persona-qa       # Quality review
+/deploy --env staging --plan         # Deployment planning
+```
+
+## 🔧 Configured MCP Services
+- File system, Git, database operations
+- Browser automation and HTTP requests
+- AI enhancement features (context7, sequential-thinking, magic)
+- Search and universal tools
+
+## 🚀 Getting Started
+Restart Claude Code, then try:
+```
+/project:ultrathink-task Analyze this project's architecture
+/build --react --magic --persona-frontend
+/analyze --code --think --persona-architect
+```
+
+## 🔄 Update Configuration
 ```bash
 ./setup.sh
 ```
