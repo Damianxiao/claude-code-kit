@@ -32,6 +32,11 @@ tmp/
 **/project-config.json
 **/.claude/settings.local.json
 
+# 环境变量文件
+.env
+.env.local
+.env.*.local
+
 # Node.js (如果有)
 node_modules/
 npm-debug.log*
