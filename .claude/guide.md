@@ -1,8 +1,8 @@
-# claude-code-prompt-sync - Claude Code Kit Configuration
+# claude-code-kit - Claude Code Kit Configuration
 
 ## Project Information
 - Project Type: Generic Project
-- Configuration Time: Sun Jul  6 19:39:52 CST 2025
+- Configuration Time: Mon Jul  7 20:43:33 CST 2025
 
 ## 🤖 Available Prompts
 ```
