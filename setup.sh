@@ -15,6 +15,7 @@ NC='\033[0m'
 # Script directory
 SCRIPT_DIR="$(dirname "$0")"
 CURRENT_DIR=$(pwd)
+BACKUP_DIR=".claude/backups"
 
 echo -e "${BLUE}🚀 Claude Code Kit - Ultimate Setup${NC}"
 echo -e "${YELLOW}Configuring prompts, complete MCP services, and SuperClaude framework...${NC}"
@@ -65,6 +66,14 @@ EOF
     fi
 }
 
+# Create backup directory if it doesn't exist
+ensure_backup_dir() {
+    if [ ! -d "$BACKUP_DIR" ]; then
+        mkdir -p "$BACKUP_DIR"
+        echo -e "${BLUE}📁 Created backup directory: $BACKUP_DIR${NC}"
+    fi
+}
+
 # Setup MCP services
 setup_mcp() {
     echo -e "${BLUE}🔧 Configuring complete MCP services...${NC}"
@@ -72,7 +81,11 @@ setup_mcp() {
     # Use ultimate configuration
     if [ -f "$SCRIPT_DIR/mcp-configs/ultimate.json" ]; then
         # Backup existing configuration
-        [ -f ".mcp.json" ] && cp .mcp.json ".mcp.json.backup.$(date +%Y%m%d_%H%M%S)"
+        if [ -f ".mcp.json" ]; then
+            ensure_backup_dir
+            cp .mcp.json "$BACKUP_DIR/mcp.json.backup.$(date +%Y%m%d_%H%M%S)"
+            echo -e "${YELLOW}📦 Backed up existing MCP configuration${NC}"
+        fi
         
         # Apply configuration
         cp "$SCRIPT_DIR/mcp-configs/ultimate.json" .mcp.json
@@ -226,6 +239,50 @@ EOF
     echo -e "${GREEN}✅ Project guide created${NC}"
 }
 
+# Update .gitignore to exclude generated files
+update_gitignore() {
+    echo -e "${BLUE}📝 Updating .gitignore...${NC}"
+    
+    # Define patterns to add
+    local patterns=(
+        "# Claude Code Kit - Generated Files"
+        "claude-code-kit/"
+        ".claude/"
+        ".mcp.json"
+        ".mcp.json.tmp"
+        "database.sqlite"
+        "*.sqlite"
+    )
+    
+    # Check if .gitignore exists
+    if [ ! -f ".gitignore" ]; then
+        echo -e "${YELLOW}ℹ️ Creating .gitignore file...${NC}"
+        touch .gitignore
+    fi
+    
+    # Check if our patterns already exist
+    if grep -q "# Claude Code Kit - Generated Files" .gitignore 2>/dev/null; then
+        echo -e "${YELLOW}ℹ️ Claude Code Kit patterns already exist in .gitignore${NC}"
+        return 0
+    fi
+    
+    # Backup existing .gitignore
+    if [ -s ".gitignore" ]; then
+        ensure_backup_dir
+        cp .gitignore "$BACKUP_DIR/gitignore.backup.$(date +%Y%m%d_%H%M%S)"
+        echo -e "${YELLOW}📦 Backed up existing .gitignore${NC}"
+    fi
+    
+    # Add our patterns
+    echo "" >> .gitignore
+    for pattern in "${patterns[@]}"; do
+        echo "$pattern" >> .gitignore
+    done
+    
+    echo -e "${GREEN}✅ .gitignore updated successfully${NC}"
+    echo -e "${YELLOW}📋 Added patterns to prevent committing generated files${NC}"
+}
+
 # 主函数
 main() {
     # 检查是否在正确目录
@@ -264,6 +321,8 @@ main() {
     
     if [ "$success" = true ]; then
         create_guide "$project_type"
+        echo ""
+        update_gitignore
         echo ""
         echo -e "${GREEN}🎉 Setup completed!${NC}"
         echo ""
