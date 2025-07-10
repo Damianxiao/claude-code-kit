@@ -28,9 +28,10 @@ test-*/
 demo-*/
 tmp/
 
-# 用户特定配置（保留模板）
-**/project-config.json
-**/.claude/settings.local.json
+# 本地生成的配置文件（不提交到仓库）
+.claude/
+.mcp.json
+*.sqlite
 
 # 环境变量文件
 .env
@@ -52,4 +53,3 @@ __pycache__/
 *.dll
 *.so
 *.dylib
-
