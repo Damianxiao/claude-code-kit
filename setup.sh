@@ -76,10 +76,12 @@ ensure_backup_dir() {
 
 # Setup MCP services
 setup_mcp() {
-    echo -e "${BLUE}🔧 Configuring complete MCP services...${NC}"
+    echo -e "${BLUE}🔧 Configuring stable MCP services (balanced configuration)...${NC}"
     
-    # Use ultimate configuration
-    if [ -f "$SCRIPT_DIR/mcp-configs/ultimate.json" ]; then
+    # Use stable configuration by default for balance of features and reliability
+    local config_file="$SCRIPT_DIR/mcp-configs/stable.json"
+    
+    if [ -f "$config_file" ]; then
         # Backup existing configuration
         if [ -f ".mcp.json" ]; then
             ensure_backup_dir
@@ -87,34 +89,42 @@ setup_mcp() {
             echo -e "${YELLOW}📦 Backed up existing MCP configuration${NC}"
         fi
         
-        # Apply configuration
-        cp "$SCRIPT_DIR/mcp-configs/ultimate.json" .mcp.json
+        # Apply stable configuration
+        cp "$config_file" .mcp.json
         
         # Adjust paths
         if command -v sed >/dev/null 2>&1; then
             sed -i.tmp "s|/path/to/project|$CURRENT_DIR|g" .mcp.json && rm -f .mcp.json.tmp
         fi
         
-        echo -e "${GREEN}✅ MCP services configuration completed${NC}"
-        echo -e "${YELLOW}📋 Configured services:${NC}"
+        echo -e "${GREEN}✅ Stable MCP services configuration completed${NC}"
+        echo -e "${YELLOW}📋 Configured services (stable & reliable):${NC}"
         echo "  • filesystem - File system access"
-        echo "  • git - Git repository operations"
+        echo "  • memory - Persistent memory storage"
+        echo "  • fetch - HTTP requests"
         echo "  • context7 - Vector database"
         echo "  • sequential-thinking - Sequential reasoning"
-        echo "  • fetch - HTTP requests"
-        echo "  • browser-tools - Browser tools"
-        echo "  • puppeteer - Browser automation"
-        echo "  • postgres - PostgreSQL database"
-        echo "  • sqlite - SQLite database"
-        echo "  • memory - Persistent memory"
-        echo "  • brave-search - Smart search"
-        echo "  • everything - Universal toolkit"
-        echo "  • magic - AI UI component generator"
+        echo "  • everything - Universal utility toolkit"
+        echo ""
+        echo -e "${BLUE}💡 This configuration balances features with reliability${NC}"
+        echo -e "${BLUE}   Avoids problematic services (git, database, browser)${NC}"
         
         return 0
     else
-        echo -e "${RED}❌ MCP configuration file not found${NC}"
-        return 1
+        # Fallback to core if stable not found
+        echo -e "${YELLOW}⚠️  Stable config not found, using core...${NC}"
+        local core_config="$SCRIPT_DIR/mcp-configs/core.json"
+        if [ -f "$core_config" ]; then
+            cp "$core_config" .mcp.json
+            if command -v sed >/dev/null 2>&1; then
+                sed -i.tmp "s|/path/to/project|$CURRENT_DIR|g" .mcp.json && rm -f .mcp.json.tmp
+            fi
+            echo -e "${GREEN}✅ Core MCP services configuration completed${NC}"
+            return 0
+        else
+            echo -e "${RED}❌ No MCP configuration files found${NC}"
+            return 1
+        fi
     fi
 }
 
@@ -283,6 +293,38 @@ update_gitignore() {
     echo -e "${YELLOW}📋 Added patterns to prevent committing generated files${NC}"
 }
 
+# Setup git commit message rules
+setup_git_rules() {
+    echo -e "${BLUE}📋 Setting up git commit message rules...${NC}"
+    
+    # Create rules directory if it doesn't exist
+    mkdir -p rules
+    
+    # Check if git commit rules already exist
+    if [ -f "rules/git-commit-rules.md" ]; then
+        echo -e "${YELLOW}ℹ️  Git commit rules already exist${NC}"
+        return 0
+    fi
+    
+    # Copy git commit rules from template
+    if [ -f "$SCRIPT_DIR/rules/git-commit-rules.md" ]; then
+        cp "$SCRIPT_DIR/rules/git-commit-rules.md" rules/
+        echo -e "${GREEN}✅ Git commit message rules installed${NC}"
+        echo -e "${YELLOW}📋 Rules location: rules/git-commit-rules.md${NC}"
+        echo ""
+        echo -e "${BLUE}💡 Rules summary:${NC}"
+        echo "  • Use concise English descriptions"
+        echo "  • Start with action verbs (Add, Fix, Update, Remove)"
+        echo "  • Keep messages under 50 characters"
+        echo "  • No signatures or author names"
+    else
+        echo -e "${RED}❌ Git commit rules template not found${NC}"
+        return 1
+    fi
+    
+    return 0
+}
+
 # 主函数
 main() {
     # 检查是否在正确目录
@@ -324,6 +366,8 @@ main() {
         echo ""
         update_gitignore
         echo ""
+        setup_git_rules
+        echo ""
         echo -e "${GREEN}🎉 Setup completed!${NC}"
         echo ""
         echo -e "${YELLOW}📖 Next steps:${NC}"
@@ -331,6 +375,7 @@ main() {
         echo "2. Try /project:ultrathink-task command"
         echo "3. Try /build --react --magic --persona-frontend"
         echo "4. View guide: cat .claude/guide.md"
+        echo "5. Check git commit rules: cat rules/git-commit-rules.md"
         echo ""
         echo -e "${BLUE}💡 Environment variable setup (optional):${NC}"
         echo "export POSTGRES_CONNECTION_STRING=\"postgresql://localhost:5432/mydb\""

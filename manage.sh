@@ -27,10 +27,11 @@ echo ""
 echo -e "${GREEN}  1) 🚀 Quick Setup${NC} - One-click configuration of all features"
 echo -e "${BLUE}  2) 📋 Check Status${NC} - Check current configuration"
 echo -e "${CYAN}  3) 🔄 Reconfigure${NC} - Update existing configuration"
+echo -e "${YELLOW}  4) ⚙️  MCP Config${NC} - Switch MCP configuration level"
 echo -e "${RED}  0) Exit${NC}"
 echo ""
 
-read -p "Please select (0-3): " choice
+read -p "Please select (0-4): " choice
 echo ""
 
 case $choice in
@@ -85,6 +86,79 @@ case $choice in
             echo -e "${GREEN}✅ Reconfiguration completed!${NC}"
         else
             echo -e "${RED}❌ Configuration failed${NC}"
+        fi
+        ;;
+    4)
+        echo -e "${YELLOW}⚙️  MCP Configuration Selector${NC}"
+        echo ""
+        echo -e "${BLUE}Available MCP configuration levels:${NC}"
+        echo ""
+        echo -e "${GREEN}  1) CORE (Recommended)${NC} - 3 stable services"
+        echo "     • filesystem, memory, everything"
+        echo "     • Fixes 502 errors and connection issues"
+        echo ""
+        echo -e "${BLUE}  2) MINIMAL${NC} - 3 basic services"  
+        echo "     • filesystem, memory, fetch"
+        echo "     • Most reliable, fewest features"
+        echo ""
+        echo -e "${YELLOW}  3) STABLE${NC} - 6 reliable services"
+        echo "     • + context7, sequential-thinking, everything"
+        echo "     • Good balance of features and stability"
+        echo ""
+        echo -e "${RED}  4) FULL${NC} - 13 services (may cause issues)"
+        echo "     • All services including git, database, browser"
+        echo "     • Maximum features but potential connection problems"
+        echo ""
+        
+        read -p "Select configuration level (1-4): " -n 1 -r
+        echo ""
+        echo ""
+        
+        case $REPLY in
+            1)
+                config_name="core"
+                echo -e "${GREEN}Applying CORE configuration...${NC}"
+                ;;
+            2)
+                config_name="minimal"
+                echo -e "${BLUE}Applying MINIMAL configuration...${NC}"
+                ;;
+            3)
+                config_name="stable"
+                echo -e "${YELLOW}Applying STABLE configuration...${NC}"
+                ;;
+            4)
+                config_name="ultimate"
+                echo -e "${RED}Applying FULL configuration...${NC}"
+                echo -e "${YELLOW}⚠️  Warning: This may cause connection issues${NC}"
+                ;;
+            *)
+                echo -e "${RED}❌ Invalid selection${NC}"
+                exit 1
+                ;;
+        esac
+        
+        # Apply selected configuration
+        if [ -f "$SCRIPT_DIR/mcp-configs/${config_name}.json" ]; then
+            # Backup existing
+            if [ -f ".mcp.json" ]; then
+                mkdir -p .claude/backups
+                cp .mcp.json ".claude/backups/mcp.json.backup.$(date +%Y%m%d_%H%M%S)"
+                echo -e "${YELLOW}📦 Backed up existing configuration${NC}"
+            fi
+            
+            # Apply new configuration
+            cp "$SCRIPT_DIR/mcp-configs/${config_name}.json" .mcp.json
+            
+            # Adjust paths
+            if command -v sed >/dev/null 2>&1; then
+                sed -i.tmp "s|/path/to/project|$CURRENT_DIR|g" .mcp.json && rm -f .mcp.json.tmp
+            fi
+            
+            echo -e "${GREEN}✅ MCP configuration updated to ${config_name}${NC}"
+            echo -e "${BLUE}💡 Restart Claude Code to apply changes${NC}"
+        else
+            echo -e "${RED}❌ Configuration file not found: ${config_name}.json${NC}"
         fi
         ;;
     0)
