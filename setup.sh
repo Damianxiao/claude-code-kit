@@ -262,6 +262,7 @@ update_gitignore() {
         ".mcp.json.tmp"
         "database.sqlite"
         "*.sqlite"
+        "rules/git-commit-rules.md"
     )
     
     # Check if .gitignore exists
