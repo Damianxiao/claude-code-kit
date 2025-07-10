@@ -60,3 +60,4 @@ claude-code-kit/
 .mcp.json.tmp
 database.sqlite
 *.sqlite
+CLAUDE.md

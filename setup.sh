@@ -258,11 +258,19 @@ update_gitignore() {
         "# Claude Code Kit - Generated Files"
         "claude-code-kit/"
         ".claude/"
+        ".mcp/"
         ".mcp.json"
-        ".mcp.json.tmp"
+        "mcp-*.json"
+        "*.tmp"
         "database.sqlite"
         "*.sqlite"
-        "rules/git-commit-rules.md"
+        "*.log"
+        "*.cache"
+        "*.backup"
+        "*.bak"
+        ".env.local"
+        "CLAUDE.md"
+        "rules/"
     )
     
     # Check if .gitignore exists
@@ -304,24 +312,90 @@ setup_git_rules() {
     # Check if git commit rules already exist
     if [ -f "rules/git-commit-rules.md" ]; then
         echo -e "${YELLOW}ℹ️  Git commit rules already exist${NC}"
-        return 0
+    else
+        # Copy git commit rules from template
+        if [ -f "$SCRIPT_DIR/rules/git-commit-rules.md" ]; then
+            cp "$SCRIPT_DIR/rules/git-commit-rules.md" rules/
+            echo -e "${GREEN}✅ Git commit message rules installed${NC}"
+            echo -e "${YELLOW}📋 Rules location: rules/git-commit-rules.md${NC}"
+        else
+            echo -e "${RED}❌ Git commit rules template not found${NC}"
+            return 1
+        fi
     fi
     
-    # Copy git commit rules from template
-    if [ -f "$SCRIPT_DIR/rules/git-commit-rules.md" ]; then
-        cp "$SCRIPT_DIR/rules/git-commit-rules.md" rules/
-        echo -e "${GREEN}✅ Git commit message rules installed${NC}"
-        echo -e "${YELLOW}📋 Rules location: rules/git-commit-rules.md${NC}"
-        echo ""
-        echo -e "${BLUE}💡 Rules summary:${NC}"
-        echo "  • Use concise English descriptions"
-        echo "  • Start with action verbs (Add, Fix, Update, Remove)"
-        echo "  • Keep messages under 50 characters"
-        echo "  • No signatures or author names"
+    # Create or update project CLAUDE.md to include git commit rules
+    if [ ! -f "CLAUDE.md" ]; then
+        echo -e "${BLUE}📝 Creating project CLAUDE.md with git commit rules...${NC}"
+        cat > CLAUDE.md << 'EOF'
+# CLAUDE.md
+
+This file provides guidance to Claude Code when working with code in this repository.
+
+## Git Commit Message Rules
+
+When creating git commits, follow the rules specified in `rules/git-commit-rules.md`.
+
+**Key Rules:**
+- Use Conventional Commits format: `<type>[optional scope]: <description>`
+- Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
+- Keep description under 50 characters
+- Use imperative mood
+- Split commits by functional area (don't combine unrelated changes)
+
+**Examples:**
+- `feat: add user authentication module`
+- `fix: resolve navigation menu styling issue`
+- `docs: update API endpoint documentation`
+- `chore: remove deprecated utility functions`
+
+For detailed rules, see: rules/git-commit-rules.md
+EOF
+        echo -e "${GREEN}✅ Project CLAUDE.md created with git commit rules${NC}"
     else
-        echo -e "${RED}❌ Git commit rules template not found${NC}"
-        return 1
+        # Check if git commit rules section already exists
+        if ! grep -q "Git Commit Message Rules" CLAUDE.md; then
+            echo -e "${BLUE}📝 Adding git commit rules section to existing CLAUDE.md...${NC}"
+            
+            # Backup existing CLAUDE.md
+            ensure_backup_dir
+            cp CLAUDE.md "$BACKUP_DIR/CLAUDE.md.backup.$(date +%Y%m%d_%H%M%S)"
+            
+            # Add git commit rules section
+            cat >> CLAUDE.md << 'EOF'
+
+## Git Commit Message Rules
+
+When creating git commits, follow the rules specified in `rules/git-commit-rules.md`.
+
+**Key Rules:**
+- Use Conventional Commits format: `<type>[optional scope]: <description>`
+- Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
+- Keep description under 50 characters
+- Use imperative mood
+- Split commits by functional area (don't combine unrelated changes)
+
+**Examples:**
+- `feat: add user authentication module`
+- `fix: resolve navigation menu styling issue`
+- `docs: update API endpoint documentation`
+- `chore: remove deprecated utility functions`
+
+For detailed rules, see: rules/git-commit-rules.md
+EOF
+            echo -e "${GREEN}✅ Git commit rules section added to CLAUDE.md${NC}"
+        else
+            echo -e "${YELLOW}ℹ️  Git commit rules section already exists in CLAUDE.md${NC}"
+        fi
     fi
+    
+    echo ""
+    echo -e "${BLUE}💡 Git commit rules summary:${NC}"
+    echo "  • Use Conventional Commits format"
+    echo "  • Split commits by functional area"
+    echo "  • Keep descriptions concise"
+    echo "  • No signatures or generated text"
+    echo "  • Rules are now integrated into Claude Code configuration"
     
     return 0
 }
