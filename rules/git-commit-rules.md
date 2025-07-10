@@ -1,52 +1,131 @@
 # Git Commit Message Rules
 
 ## Objective
-Generate concise, clear commit messages that describe changes in the working directory and staging area.
+Generate concise, clear commit messages following Conventional Commits specification that describe changes in the working directory and staging area.
 
 ## Format Requirements
+- **Standard**: Follow Conventional Commits (Angular-style commit format)
 - **Language**: English only
 - **Length**: Keep messages short and precise
-- **Style**: Use imperative mood (e.g., "Add", "Fix", "Update", "Remove")
-- **Focus**: Describe WHAT changed, not WHY or HOW
 - **No signatures**: Do not include author names, dates, or signatures
 
-## Message Structure
+## Message Structure (Conventional Commits)
 ```
-<verb> <what was changed>
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
 ```
+
+### Basic Format
+```
+<type>: <description>
+```
+
+## Commit Types
+- **feat**: New feature or functionality
+- **fix**: Bug fixes and corrections  
+- **docs**: Documentation changes
+- **style**: Code style changes (formatting, semicolons, etc.)
+- **refactor**: Code refactoring without functionality changes
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks, build process, dependencies
+- **perf**: Performance improvements
+- **ci**: CI/CD pipeline changes
+- **build**: Build system or external dependencies
+- **revert**: Reverting previous commits
+
+## Scope (Optional)
+Use scope to specify the area of change:
+- **api**: API-related changes
+- **ui**: User interface changes  
+- **auth**: Authentication/authorization
+- **db**: Database-related changes
+- **config**: Configuration changes
+- **deps**: Dependency updates
 
 ## Examples
 
 ### Good Commit Messages
-- `Add user authentication module`
-- `Fix navigation menu styling`
-- `Update API endpoint documentation`
-- `Remove deprecated utility functions`
-- `Refactor database connection logic`
+- `feat: add user authentication module`
+- `fix: resolve navigation menu styling issue`
+- `docs: update API endpoint documentation`
+- `chore: remove deprecated utility functions`
+- `refactor: improve database connection logic`
+- `feat(auth): implement JWT token validation`
+- `fix(ui): correct button alignment in header`
+- `perf(db): optimize query performance for user search`
 
 ### Bad Commit Messages
-- `Fixed some bugs and updated things` (too vague)
-- `Added new feature for user management with complete authentication system including password hashing and session management` (too long)
+- `Fixed some bugs and updated things` (too vague, no type)
+- `feat: Added new feature for user management with complete authentication system including password hashing and session management` (too long)
 - `Fix bug - John Doe 2023-12-07` (contains signature/date)
 - `修复了导航菜单的样式问题` (not in English)
 
-## Preferred Action Verbs
-- **Add**: New files, features, or functionality
-- **Fix**: Bug fixes and corrections
-- **Update**: Modifications to existing functionality
-- **Remove**: Deletion of files or features
-- **Refactor**: Code restructuring without functionality changes
-- **Merge**: Merging branches or pull requests
-- **Move**: Relocating files or reorganizing structure
-- **Rename**: Changing file or variable names
+## Breaking Changes
+For breaking changes, add `!` after type or add `BREAKING CHANGE:` in footer:
+```
+feat!: remove support for legacy API
+```
+or
+```
+feat: implement new authentication system
+
+BREAKING CHANGE: old auth tokens no longer supported
+```
+
+## Multi-Part Commits Strategy
+**Important**: Split commits by functional area rather than combining unrelated changes:
+
+### ✅ Good Practice (Separate Commits)
+```bash
+git add src/auth/ && git commit -m "feat(auth): add JWT token validation"
+git add src/ui/header.css && git commit -m "fix(ui): correct header button alignment"  
+git add docs/ && git commit -m "docs: update authentication API guide"
+```
+
+### ❌ Bad Practice (Single Large Commit)
+```bash
+git add . && git commit -m "feat: add auth, fix UI, update docs"
+```
+
+## Commit Separation Rules
+1. **By Feature Area**: Separate frontend, backend, database changes
+2. **By Type**: Don't mix features with bug fixes
+3. **By Scope**: Keep authentication, UI, documentation changes separate
+4. **By Impact**: Separate breaking changes from regular updates
 
 ## Guidelines
-1. Start with a capital letter
-2. Do not end with a period
-3. Limit to 50 characters when possible
-4. Be specific but concise
-5. Use present tense imperative mood
-6. Focus on the most significant change if multiple changes exist
+1. Use lowercase for type and description
+2. Do not end description with a period
+3. Keep description under 50 characters when possible
+4. Use imperative mood ("add" not "added" or "adds")
+5. Be specific but concise
+6. One logical change per commit
+7. Stage and commit related files together
+
+## Quick Reference
+```bash
+# Feature commits
+feat: <description>
+feat(scope): <description>
+
+# Bug fixes
+fix: <description>
+fix(scope): <description>
+
+# Documentation
+docs: <description>
+
+# Maintenance
+chore: <description>
+chore(deps): <description>
+
+# Code improvements
+refactor: <description>
+perf: <description>
+```
 
 ## Note
-These rules are designed to maintain consistency and readability in the project's git history.
+These rules follow the Conventional Commits specification (conventionalcommits.org) and are designed to maintain consistency, enable automated tooling, and improve project history readability.
