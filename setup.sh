@@ -132,20 +132,14 @@ setup_mcp() {
 setup_superclaude() {
     echo -e "${BLUE}🎭 Configuring SuperClaude development framework...${NC}"
     
-    # Ask whether to install SuperClaude
+    # Display SuperClaude features
     echo -e "${YELLOW}SuperClaude provides:${NC}"
     echo "  • 19 professional development commands"
     echo "  • 9 cognitive personas"
     echo "  • Development workflow automation"
     echo "  • Evidence-driven development methodology"
     echo ""
-    
-    read -p "Install SuperClaude framework? (Y/n): " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Nn]$ ]]; then
-        echo -e "${YELLOW}⏭️ Skipping SuperClaude installation${NC}"
-        return 0
-    fi
+    echo -e "${GREEN}✅ Auto-installing SuperClaude framework...${NC}"
     
     # Check if git is available
     if ! command -v git >/dev/null 2>&1; then
@@ -156,12 +150,8 @@ setup_superclaude() {
     # Check if already installed
     if [ -f "$HOME/.claude/CLAUDE.md" ]; then
         echo -e "${YELLOW}⚠️ Existing SuperClaude installation detected${NC}"
-        read -p "Reinstall? (y/N): " -n 1 -r
-        echo
-        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-            echo -e "${GREEN}✅ Keeping existing SuperClaude installation${NC}"
-            return 0
-        fi
+        echo -e "${GREEN}✅ Updating existing SuperClaude installation...${NC}"
+        # Auto-update existing installation
     fi
     
     # Create temporary directory
@@ -336,12 +326,18 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 When creating git commits, follow the rules specified in `rules/git-commit-rules.md`.
 
+**CRITICAL**: Never include Claude Code signatures or AI tool footers in git commit messages. This includes:
+- 🤖 Generated with [Claude Code](https://claude.ai/code)
+- Co-Authored-By: Claude <noreply@anthropic.com>
+- Any other AI attribution or generation footers
+
 **Key Rules:**
 - Use Conventional Commits format: `<type>[optional scope]: <description>`
 - Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
 - Keep description under 50 characters
 - Use imperative mood
 - Split commits by functional area (don't combine unrelated changes)
+- **NO AI signatures or attributions**
 
 **Examples:**
 - `feat: add user authentication module`
@@ -368,12 +364,18 @@ EOF
 
 When creating git commits, follow the rules specified in `rules/git-commit-rules.md`.
 
+**CRITICAL**: Never include Claude Code signatures or AI tool footers in git commit messages. This includes:
+- 🤖 Generated with [Claude Code](https://claude.ai/code)
+- Co-Authored-By: Claude <noreply@anthropic.com>
+- Any other AI attribution or generation footers
+
 **Key Rules:**
 - Use Conventional Commits format: `<type>[optional scope]: <description>`
 - Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
 - Keep description under 50 characters
 - Use imperative mood
 - Split commits by functional area (don't combine unrelated changes)
+- **NO AI signatures or attributions**
 
 **Examples:**
 - `feat: add user authentication module`
@@ -386,6 +388,52 @@ EOF
             echo -e "${GREEN}✅ Git commit rules section added to CLAUDE.md${NC}"
         else
             echo -e "${YELLOW}ℹ️  Git commit rules section already exists in CLAUDE.md${NC}"
+            # Check if it needs updating for Claude signature rules
+            if ! grep -q "Claude Code signatures" CLAUDE.md; then
+                echo -e "${BLUE}📝 Updating existing git commit rules with Claude signature prevention...${NC}"
+                
+                # Backup existing CLAUDE.md
+                ensure_backup_dir
+                cp CLAUDE.md "$BACKUP_DIR/CLAUDE.md.backup.$(date +%Y%m%d_%H%M%S)"
+                
+                # Replace the existing git commit rules section
+                # First, find and remove old section, then add updated one
+                awk '
+                /^## Git Commit Message Rules/ { skip=1 }
+                /^## [^G]/ && skip { skip=0 }
+                !skip { print }
+                END {
+                    if (skip) {
+                        print ""
+                        print "## Git Commit Message Rules"
+                        print ""
+                        print "When creating git commits, follow the rules specified in `rules/git-commit-rules.md`."
+                        print ""
+                        print "**CRITICAL**: Never include Claude Code signatures or AI tool footers in git commit messages. This includes:"
+                        print "- 🤖 Generated with [Claude Code](https://claude.ai/code)"
+                        print "- Co-Authored-By: Claude <noreply@anthropic.com>"
+                        print "- Any other AI attribution or generation footers"
+                        print ""
+                        print "**Key Rules:**"
+                        print "- Use Conventional Commits format: `<type>[optional scope]: <description>`"
+                        print "- Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert"
+                        print "- Keep description under 50 characters"
+                        print "- Use imperative mood"
+                        print "- Split commits by functional area (don'\''t combine unrelated changes)"
+                        print "- **NO AI signatures or attributions**"
+                        print ""
+                        print "**Examples:**"
+                        print "- `feat: add user authentication module`"
+                        print "- `fix: resolve navigation menu styling issue`"
+                        print "- `docs: update API endpoint documentation`"
+                        print "- `chore: remove deprecated utility functions`"
+                        print ""
+                        print "For detailed rules, see: rules/git-commit-rules.md"
+                    }
+                }' CLAUDE.md > CLAUDE.md.tmp && mv CLAUDE.md.tmp CLAUDE.md
+                
+                echo -e "${GREEN}✅ Git commit rules updated with Claude signature prevention${NC}"
+            fi
         fi
     fi
     
@@ -394,7 +442,8 @@ EOF
     echo "  • Use Conventional Commits format"
     echo "  • Split commits by functional area"
     echo "  • Keep descriptions concise"
-    echo "  • No signatures or generated text"
+    echo "  • NO Claude Code signatures or AI attributions"
+    echo "  • NO AI-generated footers in commit messages"
     echo "  • Rules are now integrated into Claude Code configuration"
     
     return 0

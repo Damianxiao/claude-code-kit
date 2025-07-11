@@ -8,6 +8,7 @@ Generate concise, clear commit messages following Conventional Commits specifica
 - **Language**: English only
 - **Length**: Keep messages short and precise
 - **No signatures**: Do not include author names, dates, or signatures
+- **No Claude Code signatures**: Explicitly exclude Claude Code generation footers
 
 ## Message Structure (Conventional Commits)
 ```
@@ -62,6 +63,8 @@ Use scope to specify the area of change:
 - `feat: Added new feature for user management with complete authentication system including password hashing and session management` (too long)
 - `Fix bug - John Doe 2023-12-07` (contains signature/date)
 - `修复了导航菜单的样式问题` (not in English)
+- `feat: add login system 🤖 Generated with [Claude Code](https://claude.ai/code)` (contains AI signature)
+- `fix: resolve styling issue\n\nCo-Authored-By: Claude <noreply@anthropic.com>` (contains AI co-author)
 
 ## Breaking Changes
 For breaking changes, add `!` after type or add `BREAKING CHANGE:` in footer:
@@ -73,6 +76,33 @@ or
 feat: implement new authentication system
 
 BREAKING CHANGE: old auth tokens no longer supported
+```
+
+## Prohibited Content
+**IMPORTANT**: The following content is strictly prohibited in git commit messages:
+
+### AI Tool Signatures
+- 🤖 Generated with [Claude Code](https://claude.ai/code)
+- Co-Authored-By: Claude <noreply@anthropic.com>
+- Any other AI tool generation footers or signatures
+
+### Personal Information
+- Author names or usernames
+- Email addresses
+- Dates or timestamps
+- Personal signatures
+
+### Example of What NOT to Include
+```bash
+# ❌ WRONG
+git commit -m "feat: add user authentication
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+
+# ✅ CORRECT
+git commit -m "feat: add user authentication"
 ```
 
 ## Multi-Part Commits Strategy
@@ -104,6 +134,8 @@ git add . && git commit -m "feat: add auth, fix UI, update docs"
 5. Be specific but concise
 6. One logical change per commit
 7. Stage and commit related files together
+8. **Never include AI tool signatures or generation footers**
+9. **Exclude Claude Code attribution from commit messages**
 
 ## Quick Reference
 ```bash
