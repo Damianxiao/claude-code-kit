@@ -408,8 +408,8 @@ EOF
             
             # Insert RIPER-5 protocol section after project overview
             awk '
-            /^# / && !inserted && NR > 1 {
-                # Insert RIPER-5 protocol after the first heading
+            /^## / && !inserted {
+                # Insert RIPER-5 protocol before the first ## heading
                 print ""
                 print "## RIPER-5 模式控制协议"
                 print ""
