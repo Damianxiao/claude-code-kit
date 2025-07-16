@@ -104,10 +104,11 @@ setup_mcp() {
         echo "  • fetch - HTTP requests"
         echo "  • context7 - Vector database"
         echo "  • sequential-thinking - Sequential reasoning"
+        echo "  • playwright - Browser automation and testing"
         echo "  • everything - Universal utility toolkit"
         echo ""
         echo -e "${BLUE}💡 This configuration balances features with reliability${NC}"
-        echo -e "${BLUE}   Avoids problematic services (git, database, browser)${NC}"
+        echo -e "${BLUE}   Includes browser automation with stable dependencies${NC}"
         
         return 0
     else

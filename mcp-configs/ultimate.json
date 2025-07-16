@@ -39,6 +39,11 @@
       "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
       "env": {}
     },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"],
+      "env": {}
+    },
     "postgres": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-postgres"],

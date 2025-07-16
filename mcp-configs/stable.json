@@ -29,6 +29,11 @@
       "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
       "env": {}
     },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"],
+      "env": {}
+    },
     "everything": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-everything"],
