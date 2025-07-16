@@ -9,6 +9,11 @@
       ],
       "env": {}
     },
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "."],
+      "env": {}
+    },
     "memory": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-memory"],
@@ -32,6 +37,16 @@
     "playwright": {
       "command": "npx",
       "args": ["@playwright/mcp@latest"],
+      "env": {}
+    },
+    "sqlite": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sqlite",
+        "--db-path",
+        "./database.sqlite"
+      ],
       "env": {}
     },
     "everything": {
